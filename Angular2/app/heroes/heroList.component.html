@@ -1,0 +1,35 @@
+<section *ngIf="isLoading && !errorMessage">
+	Loading our hyperdrives!!! Retrieving data...
+</section>
+{{errorMessage}}
+<h2>{{title}}</h2>
+<div>
+	<label>Hero name:</label> <input #heroName />
+	<button (click)="add(heroName.value); heroName.value=''">
+    Add
+  </button>
+</div>
+<ul class="heroes">
+	<li *ngFor="let h of heroes" (click)="onSelect(h)" [class.selected]="h === selectedHero">
+		<span class="badge">{{h.id}}</span>
+		<span>{{h.name}}</span>
+		<button class="delete" (click)="delete(h); $event.stopPropagation()">x</button>
+	</li>
+</ul>
+<div *ngIf="selectedHero">
+	<h2>
+		{{selectedHero.name | uppercase}} is my hero
+	</h2>
+	<button (click)="gotoDetail(selectedHero)">View Details</button>
+</div>
+
+<div *ngIf="heroDetail">
+  <h2>{{heroDetail.name}} details!</h2>
+  <div>
+    <label>id: </label>{{heroDetail.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="heroDetail.name" placeholder="name" />
+   </div>
+  <button (click)="save()">Save</button>
+</div>
